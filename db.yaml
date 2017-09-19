@@ -3,5 +3,9 @@
 # Hostname recommended as the 1st tag.
 # Tag 'any' should be present in every line. Recommended to be the last tag.
 # One line per host to be grep friendly.
-test1: [test1, lab, switch, any]
-test2: [test2, lab, switch, any]
+leaf1: [leaf1, lab, switch, mlag1, any]
+leaf2: [leaf2, lab, switch, mlag1, any]
+leaf3: [leaf3, lab, switch, mlag2, any]
+leaf4: [leaf4, lab, switch, mlag2, any]
+leaf5: [leaf5, lab, switch, mlag3, any]
+leaf6: [leaf6, lab, switch, mlag3, any]

@@ -1,16 +1,18 @@
 - tags:
-  - lab
+  - mlag1
   variables:
     vlan_list:
     - name: test_vlan
       number: 123
+      vni: 0.0.1
     - name: another_test_vlan
       number: 1234
+      vni: 0.0.2
     vxlan:
       loopback:
         description: vxlan_source
         ip: 10.10.10.10
-        mask: /32
+        mask: 32
         number: 100
       required: True
       vtep_list:
@@ -18,6 +20,58 @@
       - 10.30.30.30
 
 - tags:
-  - lab
+  - mlag1
+  templates:
+  - vlan.j2
+
+- tags:
+  - mlag2
+  variables:
+    vlan_list:
+    - name: test_vlan
+      number: 123
+      vni: 0.0.1
+    - name: another_test_vlan
+      number: 1234
+      vni: 0.0.2
+    vxlan:
+      loopback:
+        description: vxlan_source
+        ip: 10.20.20.20
+        mask: 32
+        number: 100
+      required: True
+      vtep_list:
+      - 10.10.10.10
+      - 10.30.30.30
+
+- tags:
+  - mlag2
+  templates:
+  - vlan.j2
+
+- tags:
+  - mlag3
+  variables:
+    vlan_list:
+    - name: test_vlan
+      number: 123
+      vni: 0.0.1
+    - name: another_test_vlan
+      number: 1234
+      vni: 0.0.2
+    vxlan:
+      loopback:
+        description: vxlan_source
+        ip: 10.30.30.30
+        mask: 32
+        number: 100
+      required: True
+      vtep_list:
+      - 10.20.20.20
+      - 10.10.10.10
+
+- tags:
+  - mlag3
   templates:
   - vlan.j2
