@@ -3,7 +3,7 @@ from time import time as time                   # used in: time_stamp()
 from datetime import datetime as datetime       # used in: time_stamp()
 import json
 
-__author__ = 'Petr Ankudinov, pa@arista.com'
+__author__ = 'Petr Ankudinov'
 
 
 def merge_dict(d1, d2):
