@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 
+__author__ = 'Petr Ankudinov'
+
 from modules.j2ASTwalker import J2Meta
 from modules import tools
 import sys

@@ -2,3 +2,7 @@
 
 Missing extension to Jinja2 meta for network engineers.
 Description coming soon.
+
+Required:
+- Jinja2
+- PyYAML
