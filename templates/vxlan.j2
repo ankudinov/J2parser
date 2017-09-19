@@ -1,0 +1,15 @@
+vxlan vni notation dotted
+
+interface Loopback{{ vxlan.loopback.number }}
+  description {{ vxlan.loopback.description }}
+  ip address {{ vxlan.loopback.ip }}/{{ vxlan.loopback.mask }}
+
+interface Vxlan1
+  vxlan source-interface Loopback{{ vxlan.loopback.number }}
+  vxlan udp-port 4789
+  {%- for vlan in vlan_list %}
+  vxlan vlan {{ vlan.number }} vni {{ vlan.vni }}
+  {%- endfor %}
+  {%- for vtep in vxlan.vtep_list %}
+  vxlan flood vtep {{ vtep }}
+  {%- endfor %}

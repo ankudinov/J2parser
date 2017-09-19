@@ -119,7 +119,6 @@ class J2Meta:
                 jinja2.nodes.AssignBlock,
                 jinja2.nodes.BinExpr,
                 jinja2.nodes.UnaryExpr,
-                jinja2.nodes.NSRef,
                 jinja2.nodes.Tuple,
                 jinja2.nodes.List,
                 jinja2.nodes.Dict,
