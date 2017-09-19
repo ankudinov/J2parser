@@ -1,0 +1,4 @@
+template_path: ./templates
+task_path: ./tasks
+configs: ./generated_configs
+host_db: ./db.yaml

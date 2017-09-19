@@ -1,0 +1,7 @@
+# Host database
+# 'host_ip/name': [tag1, tag2, tag3, etc.]
+# Hostname recommended as the 1st tag.
+# Tag 'any' should be present in every line. Recommended to be the last tag.
+# One line per host to be grep friendly.
+test1: [test1, lab, switch, any]
+test2: [test2, lab, switch, any]

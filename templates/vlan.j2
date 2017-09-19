@@ -3,6 +3,6 @@ vlan {{ vlan.number }}
   name {{ vlan.name }}
 {%- endfor %}
 
-{% if vxlan.reqquired == True %}
+{% if vxlan.required == True %}
     {% include 'vxlan.j2' %}
 {% endif %}
