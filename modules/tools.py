@@ -1,6 +1,7 @@
 import yaml
 from time import time as time                   # used in: time_stamp()
 from datetime import datetime as datetime       # used in: time_stamp()
+import json
 
 __author__ = 'Petr Ankudinov, pa@arista.com'
 
@@ -23,6 +24,33 @@ def merge_dict(d1, d2):
         else:
             if isinstance(d1[key], dict) and isinstance(d2[key], dict):
                     result[key] = merge_dict(d1[key], d2[key])  # recursion
+            elif isinstance(d1[key], list) or isinstance(d2[key], list):
+                temp_set = set()
+                temp_dict = dict()
+
+                if isinstance(d1[key], dict):
+                    temp_dict = merge_dict(temp_dict, d1[key])  # recursion
+                if isinstance(d2[key], dict):
+                    temp_dict = merge_dict(temp_dict, d2[key])  # recursion
+
+                if isinstance(d1[key], list):
+                    for e1 in d1[key]:
+                        if isinstance(e1, dict):
+                            temp_dict = merge_dict(temp_dict, e1)  # recursion
+                        else:
+                            temp_set.add(e1)
+
+                if isinstance(d2[key], list):
+                    for e2 in d2[key]:
+                        if isinstance(e2, dict):
+                            temp_dict = merge_dict(temp_dict, e2)  # recursion
+                        else:
+                            temp_set.add(e2)
+
+                result[key] = list()
+                result[key].append(temp_dict)
+                for e in temp_set:
+                    result[key].append(e)
             else:
                 result[key] = d2[key]
 
