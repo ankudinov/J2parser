@@ -56,7 +56,7 @@ Execute following command:
 ```
 
 That will build configs with timestamps in `generated_configs` directory.
-Same VLANs, but different loopbacks and flood lists will be configured on 3 MLAG clusters.
+Configs with same VLANs, but different loopbacks and flood lists will be generated for 3 MLAG clusters.
 
 Use `./j2p.py test-task.yaml yaml save -p prefix` to specify the name prefix for produced configs.
 
