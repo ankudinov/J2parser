@@ -1,8 +1,8 @@
-{%- for vlan in vlan_list %}
+{%- for vlan in vlan_list -%}
 vlan {{ vlan.number }}
   name {{ vlan.name }}
 {%- endfor %}
 
 {% if vxlan.required == True %}
-    {% include 'vxlan.j2' %}
+    {%- include 'vxlan.j2' %}
 {% endif %}

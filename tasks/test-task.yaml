@@ -1,0 +1,23 @@
+- tags:
+  - lab
+  variables:
+    vlan_list:
+    - name: test_vlan
+      number: 123
+    - name: another_test_vlan
+      number: 1234
+    vxlan:
+      loopback:
+        description: vxlan_source
+        ip: 10.10.10.10
+        mask: /32
+        number: 100
+      required: True
+      vtep_list:
+      - 10.20.20.20
+      - 10.30.30.30
+
+- tags:
+  - lab
+  templates:
+  - vlan.j2

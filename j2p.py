@@ -3,7 +3,7 @@
 __author__ = 'Petr Ankudinov'
 
 from modules.j2ASTwalker import J2Meta
-from modules import tools
+from modules import tools, delivery
 import sys
 import yaml
 import os
@@ -19,6 +19,10 @@ class ArgParser:
         parser.add_argument('file_type', help='Jinja2 or YAML file.',
                             choices=['j2', 'yaml'])
 
+        subparsers = parser.add_subparsers(help='Select delivery mode, YAML only.', dest='mode')
+        save_parser = subparsers.add_parser('save', help='Save generated configs in a directory specified in settings.')
+        save_parser.add_argument('-p', '--prefix', help='Config filename prefix.', dest='prefix', default=False)
+
         if args:  # if arguments are passed from unittest
             self.args = parser.parse_args(args)
         else:
@@ -29,6 +33,9 @@ class ArgParser:
             return self.args.prefix
         else:
             return False
+
+    def mode(self):
+        return self.args.mode
 
     def file_type(self):
         return self.args.file_type
@@ -48,13 +55,20 @@ class ScriptEnvironment:
             self.template_path = self.get_dir(settings['template_path'])
             self.configs_path = self.get_dir(settings['configs'])
             self.task_path = self.get_dir(settings['task_path'])
-            db_name = self.get_file(settings['host_db'])
-            self.db = tools.load_yaml(db_name)
-            if not isinstance(self.db, dict):
+            db_name = self.get_file(self.script_realpath, settings['host_db'])
+            self.json_db = tools.load_yaml(db_name)
+            if not isinstance(self.json_db, dict):
                 sys.exit('ERROR: Wrong db format. Database file should be a dictionary!')
             # get parameters from CLI
-            self.filename = cli_args.filename()
             self.file_type = cli_args.file_type()
+            if self.file_type == "yaml":
+                self.filename = self.get_file(self.task_path, cli_args.filename())
+                self.json_data = tools.load_yaml(self.filename)
+                self.mode = cli_args.mode()
+                if self.mode == 'save':
+                    self.prefix = cli_args.prefix()
+            else:
+                self.filename = self.get_file(self.template_path, cli_args.filename())
         except Exception as _:
             sys.exit('ERROR: Can not load settings!')
 
@@ -66,17 +80,17 @@ class ScriptEnvironment:
             if os.path.isdir(template_dir):
                 return template_dir
             else:
-                sys.exit('ERROR: Can not find a directory specified in settings!')
+                sys.exit('ERROR: Can not find directory %s!' % dir_name)
 
-    def get_file(self, file_name):
+    def get_file(self, dir, file_name):
         if os.path.isfile(file_name):
             return file_name
         else:
-            file = os.path.join(self.script_realpath, file_name)
+            file = os.path.join(dir, file_name)
             if os.path.isfile(file):
                 return file
             else:
-                sys.exit('ERROR: Can not find a file in settings!')
+                sys.exit('ERROR: Can not find file %s!' % file_name)
 
 
 if __name__ == '__main__':
@@ -91,3 +105,7 @@ if __name__ == '__main__':
         print(
             yaml.dump(template_meta.get_variables(), default_flow_style=False)
         )
+
+    if env.file_type == 'yaml':
+        if env.mode == 'save':
+            delivery.save_configs(env)
