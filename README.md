@@ -1,6 +1,6 @@
 # Jinja2 Parser (j2p)
 
-NOTE: recently discovered [jinja2schema](http://jinja2schema.aromanovich.ru/) library. Looks very promising, updates coming soon.
+>**NOTE**: recently discovered [jinja2schema](http://jinja2schema.aromanovich.ru/) library. Looks very promising, updates coming soon.
 
 Jinja2 parser is a simple tool for network engineers that can be used:
 - to walk over Jinja2 Abstract Syntax Tree to extract variables, that can not be extracted by Jinja2.meta.
