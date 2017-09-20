@@ -61,5 +61,5 @@ Configs with same VLANs, but different loopbacks and flood lists will be generat
 Use `./j2p.py test-task.yaml yaml save -p prefix` to specify the name prefix for produced configs.
 
 Required:
-- Jinja2
+- Jinja2 (2.9.6)
 - PyYAML

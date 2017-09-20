@@ -70,7 +70,7 @@ def save_configs(env):
         filename = ''
         if env.prefix:
             filename += env.prefix + '_'
-        filename += ip + '_' + str(tools.time_stamp()) + '.txt'
+        filename += str(ip) + '_' + str(tools.time_stamp()) + '.txt'
         realpath = os.path.join(env.configs_path, filename)
         try:
             file = open(realpath, mode='w')
