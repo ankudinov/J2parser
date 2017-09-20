@@ -1,0 +1,20 @@
+
+
+vlan 123
+  name test_vlan
+vlan 1234
+  name another_test_vlan
+
+vxlan vni notation dotted
+
+interface Loopback100
+  description vxlan_source
+  ip address 10.20.20.20/32
+
+interface Vxlan1
+  vxlan source-interface Loopback100
+  vxlan udp-port 4789
+  vxlan vlan 123 vni 0.0.1
+  vxlan vlan 1234 vni 0.0.2
+  vxlan flood vtep 10.10.10.10
+  vxlan flood vtep 10.30.30.30
